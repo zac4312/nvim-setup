@@ -56,12 +56,14 @@ require("lazy").setup({
   -- ==========================
   -- COLORSHEME
   -- ==========================
-  {
-    priority = 1000,
-    config = function()
-      vim.cmd("colorscheme retrobox")
-    end, 
-  },
+vim.cmd.colorscheme("retrobox")
+
+--{  "<imported colorscheme>"
+    --priority = 1000,
+    --config = function()
+      -- vim.cmd("colorscheme <colorscheme>")
+    --end, 
+ -- },
 
   -- ==========================
   -- TELESCOPE
