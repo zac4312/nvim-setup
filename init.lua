@@ -125,6 +125,12 @@ require("lazy").setup({
       vim.lsp.enable(server)
     end
 
+    -- sqls setup (separate)
+        vim.lsp.config("sqls", {
+            capabilities = capabilities,
+        })
+        vim.lsp.enable("sqls")
+
     -- Keymaps
     vim.keymap.set("n", "K", vim.lsp.buf.hover)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition)
