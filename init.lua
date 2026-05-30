@@ -42,8 +42,14 @@ require("lazy").setup({
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "lua", "javascript", "typescript",
-          "html", "css", "python", "sql"
+          "lua",
+          "javascript",
+          "typescript",
+          "html",
+          "css",
+          "python",
+          "sql",
+          "java"
         },
         highlight = { enable = true },
       })
@@ -87,13 +93,17 @@ require("lazy").setup({
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "lua_ls",
-          "pyright",
+          "lua_ls", 
           "ts_ls", 
+
         },
         automatic_installation = true,
       })
     end,
+  },
+
+  {
+    "mfussenegger/nvim-jdtls",
   },
 
   -- LSP Config
