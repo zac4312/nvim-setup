@@ -62,13 +62,24 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
-  -- File Explorer
+  -- File Tree 
   {
-    "nvim-tree/nvim-tree.lua",
-    config = function()
-      require("nvim-tree").setup()
-    end,
-  },
+  "nvim-tree/nvim-tree.lua",
+  config = function()
+    require("nvim-tree").setup({
+      renderer = {
+        group_empty = true,
+        indent_width = 1,
+      },
+
+      view = {
+        number = true,
+        relativenumber = true,
+      },
+
+    })
+  end,
+},
 
   -- Statusline
   {
@@ -93,8 +104,8 @@ require("lazy").setup({
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "lua_ls", 
-          "ts_ls", 
+          "lua_ls",
+          "ts_ls",
 
         },
         automatic_installation = true,
@@ -107,7 +118,7 @@ require("lazy").setup({
   },
 
   -- LSP Config
- 
+
 {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -147,6 +158,18 @@ require("lazy").setup({
     vim.keymap.set("n", "gr", vim.lsp.buf.references)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 
+    vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "Find diagnostics" } )
+    vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" } )
+    vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" } )
+    vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find text" } )
+    vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Find symbols" } )
+
+    vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>")
+
+
+    vim.keymap.set("n", ">d", vim.diagnostic.goto_next, { desc = "Next diagnostic" } )
+    vim.keymap.set("n", "<d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" } )
+
     -- Autocomplete
     local cmp = require("cmp")
     local luasnip = require("luasnip")
@@ -171,9 +194,13 @@ require("lazy").setup({
 
   end,
 },
-
-
 })
+
+vim.api.nvim_create_user_command(
+    "JavaRefresh", function()
+    require("java").update_project_config()
+    end, {}
+)
 
 -- ==========================
 -- COLORSCHEME (AFTER PLUGINS)
@@ -181,3 +208,5 @@ require("lazy").setup({
 vim.schedule(function()
   vim.cmd.colorscheme("retrobox")
 end)
+
+
