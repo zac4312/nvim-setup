@@ -1,4 +1,3 @@
--- ==========================
 -- BASIC SETTINGS
 -- ==========================
 vim.opt.clipboard = "unnamedplus"
@@ -164,8 +163,41 @@ require("lazy").setup({
     vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find text" } )
     vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Find symbols" } )
 
-    vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>")
+    vim.keymap.set (
+        "n", "<leader>sf", function()
+        vim.cmd("rightbelow vsplit")
+        require("telescope.builtin").find_files()
+        end,
 
+        { desc = "Find file in new split" }
+    )
+
+    vim.keymap.set (
+        "n", "<leader>sfd", function()
+        vim.cmd("rightbelow split")
+        require("telescope.builtin").find_files()
+        end,
+
+        { desc = "Find file in new split" }
+    )
+
+    vim.keymap.set (
+       "n", "<leader>st", function()
+        vim.cmd("rightbelow vsplit")
+        vim.cmd("terminal")
+        end,
+
+        { desc = "Find file in new split" }
+    )
+
+    vim.keymap.set("n", "<leader>hs", "<cmd>vertical resize 1<CR>", { desc = "close window" }) 
+    vim.keymap.set("n", "<leader>hd", "<cmd>horizontal resize 1<CR>", { desc = "close window" })
+
+    vim.keymap.set("n", "<leader>=", "<cmd>vertical resize +10<CR>", { desc = "extend window" })
+    vim.keymap.set("n", "<leader>=l", "<cmd>horizontal resize +10<CR>", { desc = "extend window" })
+
+    vim.keymap.set("n", "<leader>-", "<cmd>vertical resize -10<CR>", { desc = "minimize window" })
+    vim.keymap.set("n", "<leader>-l", "<cmd>horizontal resize -10<CR>", { desc = "extend window" })
 
     vim.keymap.set("n", ">d", vim.diagnostic.goto_next, { desc = "Next diagnostic" } )
     vim.keymap.set("n", "<d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" } )
