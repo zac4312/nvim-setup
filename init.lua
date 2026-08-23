@@ -48,7 +48,8 @@ require("lazy").setup({
           "css",
           "python",
           "sql",
-          "java"
+          "java",
+          "c"
         },
         highlight = { enable = true },
       })
@@ -144,6 +145,21 @@ require("lazy").setup({
       })
       vim.lsp.enable(server)
     end
+
+vim.lsp.config("clangd", {
+  capabilities = capabilities,
+
+  on_attach = function(client, bufnr)
+    vim.keymap.set("n", "<leader>cf", function()
+      vim.lsp.buf.format({ async = true })
+    end, {
+      buffer = bufnr,
+      desc = "Format C file",
+    })
+  end,
+})
+
+vim.lsp.enable("clangd")
 
     -- sqls setup (separate)
         vim.lsp.config("sqls", {
